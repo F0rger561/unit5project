@@ -1,9 +1,20 @@
+function levelThree () {
+    tiles.setCurrentTilemap(tilemap`level3`)
+}
 function jumping () {
     player1.ay = 300
     player2.ay = 300
 }
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    scene.cameraFollowSprite(player2)
+    controller.player2.moveSprite(player2)
+})
 controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     player1.vy = -150
+})
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    scene.cameraFollowSprite(player1)
+    controller.moveSprite(player1)
 })
 function keymapping () {
     MakeyMakey.setSimulatorKeymap(
@@ -24,6 +35,11 @@ function keymapping () {
     MakeyMakey.MakeyMakeyKey.LEFT_CLICK,
     MakeyMakey.MakeyMakeyKey.RIGHT_CLICK
     )
+}
+function levelOne () {
+    tiles.setCurrentTilemap(tilemap`level1`)
+    jumping()
+    createPlayers()
 }
 controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     player2.vy = -150
@@ -163,6 +179,19 @@ controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.P
         . . . . f . f . . . . 
         `)
 })
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.purpleSwitchUp, function (sprite, location) {
+    tiles.setTileAt(tiles.getTileLocation(3, 5), sprites.dungeon.greenInnerSouthWest)
+    tiles.setWallAt(tiles.getTileLocation(3, 5), false)
+    tiles.setTileAt(tiles.getTileLocation(3, 6), sprites.dungeon.greenInnerSouthWest)
+    tiles.setWallAt(tiles.getTileLocation(3, 6), false)
+    tiles.setTileAt(tiles.getTileLocation(3, 7), sprites.dungeon.greenInnerSouthWest)
+    tiles.setWallAt(tiles.getTileLocation(3, 7), false)
+    tiles.setTileAt(tiles.getTileLocation(3, 5), sprites.dungeon.greenInnerSouthWest)
+    tiles.setTileAt(location, sprites.dungeon.purpleSwitchDown)
+})
+function levelTwo () {
+    tiles.setCurrentTilemap(tilemap`level2`)
+}
 controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pressed, function () {
     player1.setImage(img`
         f f . . . f . . . f f 
@@ -191,6 +220,14 @@ controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pr
 })
 let player2: Sprite = null
 let player1: Sprite = null
-createPlayers()
+let Level = game.askForNumber("What level would you like to play? 1 2 or 3?", 1)
+if (Level == 1) {
+    levelOne()
+} else if (Level == 2) {
+    levelTwo()
+} else if (Level == 3) {
+    levelThree()
+} else if (Level == 999) {
+    tiles.setCurrentTilemap(tilemap`level3`)
+}
 keymapping()
-jumping()
