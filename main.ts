@@ -1,5 +1,5 @@
 function levelThree () {
-    tiles.setCurrentTilemap(tilemap`level3`)
+    tiles.setCurrentTilemap(tilemap`level7`)
 }
 function jumping () {
     player1.ay = 300
@@ -37,7 +37,7 @@ function keymapping () {
     )
 }
 function levelOne () {
-    tiles.setCurrentTilemap(tilemap`level1`)
+    tiles.setCurrentTilemap(tilemap`level5`)
     jumping()
     createPlayers()
 }
@@ -190,7 +190,7 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.purpleSwitchUp, function 
     tiles.setTileAt(location, sprites.dungeon.purpleSwitchDown)
 })
 function levelTwo () {
-    tiles.setCurrentTilemap(tilemap`level2`)
+    tiles.setCurrentTilemap(tilemap`level6`)
 }
 controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pressed, function () {
     player1.setImage(img`
@@ -228,6 +228,6 @@ if (Level == 1) {
 } else if (Level == 3) {
     levelThree()
 } else if (Level == 999) {
-    tiles.setCurrentTilemap(tilemap`level3`)
+    tiles.setCurrentTilemap(tilemap`level8`)
 }
 keymapping()
