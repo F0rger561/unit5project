@@ -23,7 +23,7 @@ function keymapping () {
     MakeyMakey.MakeyMakeyKey.S,
     MakeyMakey.MakeyMakeyKey.A,
     MakeyMakey.MakeyMakeyKey.D,
-    MakeyMakey.MakeyMakeyKey.LEFT_CLICK,
+    MakeyMakey.MakeyMakeyKey.F,
     MakeyMakey.MakeyMakeyKey.RIGHT_CLICK
     )
     MakeyMakey.setSimulatorKeymap(
@@ -38,8 +38,8 @@ function keymapping () {
 }
 function levelOne () {
     tiles.setCurrentTilemap(tilemap`level5`)
-    jumping()
     createPlayers()
+    jumping()
 }
 controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     player2.vy = -150
