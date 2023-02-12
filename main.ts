@@ -1,5 +1,10 @@
 function levelThree () {
     tiles.setCurrentTilemap(tilemap`level7`)
+    createPlayers()
+    jumping()
+    scene.cameraFollowSprite(player1)
+    tiles.placeOnRandomTile(player1, sprites.dungeon.stairEast)
+    tiles.placeOnRandomTile(player2, sprites.dungeon.stairWest)
 }
 function jumping () {
     player1.ay = 300
@@ -7,14 +12,12 @@ function jumping () {
 }
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     scene.cameraFollowSprite(player2)
-    controller.player2.moveSprite(player2)
 })
 controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     player1.vy = -150
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     scene.cameraFollowSprite(player1)
-    controller.moveSprite(player1)
 })
 function keymapping () {
     MakeyMakey.setSimulatorKeymap(
@@ -40,7 +43,20 @@ function levelOne () {
     tiles.setCurrentTilemap(tilemap`level5`)
     createPlayers()
     jumping()
+    scene.cameraFollowSprite(player1)
+    tiles.placeOnRandomTile(player2, sprites.dungeon.stairEast)
+    tiles.placeOnRandomTile(player1, sprites.dungeon.stairWest)
 }
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.greenSwitchDown, function (sprite, location) {
+    tiles.setTileAt(tiles.getTileLocation(3, 5), sprites.dungeon.greenInnerSouthWest)
+    tiles.setWallAt(tiles.getTileLocation(3, 5), false)
+    tiles.setTileAt(tiles.getTileLocation(3, 6), sprites.dungeon.greenInnerSouthWest)
+    tiles.setWallAt(tiles.getTileLocation(3, 6), false)
+    tiles.setTileAt(tiles.getTileLocation(3, 7), sprites.dungeon.greenInnerSouthWest)
+    tiles.setWallAt(tiles.getTileLocation(3, 7), false)
+    tiles.setTileAt(tiles.getTileLocation(3, 5), sprites.dungeon.greenInnerSouthWest)
+    tiles.setTileAt(location, sprites.dungeon.purpleSwitchDown)
+})
 controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     player2.vy = -150
 })
@@ -97,7 +113,6 @@ function createPlayers () {
         . . . . f . f . . . . 
         `, SpriteKind.Player)
     controller.moveSprite(player1, 100, 0)
-    player1.setStayInScreen(true)
     player2 = sprites.create(img`
         . . . . . . . f f f . . 
         . . . . . . f 6 6 8 f . 
@@ -124,7 +139,6 @@ function createPlayers () {
         . . . . . f . f . . . . 
         `, SpriteKind.Player)
     controller.player2.moveSprite(player2, 100, 0)
-    player2.setStayInScreen(true)
 }
 controller.player2.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pressed, function () {
     player2.setImage(img`
@@ -191,6 +205,11 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.purpleSwitchUp, function 
 })
 function levelTwo () {
     tiles.setCurrentTilemap(tilemap`level6`)
+    createPlayers()
+    jumping()
+    scene.cameraFollowSprite(player1)
+    tiles.placeOnRandomTile(player2, sprites.dungeon.stairEast)
+    tiles.placeOnRandomTile(player1, sprites.dungeon.stairWest)
 }
 controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pressed, function () {
     player1.setImage(img`
@@ -229,5 +248,7 @@ if (Level == 1) {
     levelThree()
 } else if (Level == 999) {
     tiles.setCurrentTilemap(tilemap`level8`)
+} else {
+    levelOne()
 }
 keymapping()
