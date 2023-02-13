@@ -46,6 +46,15 @@ function jumping () {
 function game2 () {
     while (rounds == 3) {
         game.splash(GG(list))
+        if (game.ask("Would you like to play again?")) {
+            start()
+        } else {
+            for (let index = 0; index < 4; index++) {
+                game.splash("Leave.")
+                pause(5000)
+                continue;
+            }
+        }
     }
     tiles.setTileAt(tiles.getTileLocation(14, 10), sprites.dungeon.greenSwitchUp)
     tiles.setTileAt(tiles.getTileLocation(30, 5), sprites.dungeon.purpleSwitchUp)
@@ -319,6 +328,14 @@ function GG (WsLs: any[]) {
         return "You lost all three rounds, wow."
     }
 }
+function start () {
+    WLsnum = 0
+    Wall = true
+    teammate = false
+    rounds = 0
+    list = []
+    game2()
+}
 scene.onOverlapTile(SpriteKind.WATER, assets.tile`tile4`, function (sprite, location) {
     if (Wall) {
         tiles.setWallAt(tiles.getTileLocation(17, 33), false)
@@ -370,18 +387,14 @@ controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pr
         . . . . f . f . . . . 
         `)
 })
+let teammate = false
+let WLsnum = 0
 let Level = 0
-let player2: Sprite = null
-let player1: Sprite = null
 let list: boolean[] = []
 let rounds = 0
+let player2: Sprite = null
+let player1: Sprite = null
 let Wall = false
-let WLsnum = 0
-WLsnum = 0
-Wall = true
-let teammate = 0
-rounds = 0
-list = []
 tiles.setCurrentTilemap(tilemap`level5`)
-game2()
+start()
 keymapping()
