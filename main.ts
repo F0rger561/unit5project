@@ -104,7 +104,7 @@ function keymapping () {
     MakeyMakey.MakeyMakeyKey.A,
     MakeyMakey.MakeyMakeyKey.D,
     MakeyMakey.MakeyMakeyKey.F,
-    MakeyMakey.MakeyMakeyKey.RIGHT_CLICK
+    MakeyMakey.MakeyMakeyKey.G
     )
     MakeyMakey.setSimulatorKeymap(
     MakeyMakey.PlayerNumber.TWO,
