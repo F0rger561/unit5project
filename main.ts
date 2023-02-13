@@ -384,3 +384,4 @@ rounds = 0
 list = []
 tiles.setCurrentTilemap(tilemap`level5`)
 game2()
+keymapping()
