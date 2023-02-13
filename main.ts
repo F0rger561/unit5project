@@ -44,8 +44,8 @@ function jumping () {
     player2.ay = 300
 }
 function game2 () {
-    while (rounds >= 2) {
-        GG(list)
+    while (rounds == 3) {
+        game.splash(GG(list))
     }
     tiles.setTileAt(tiles.getTileLocation(14, 10), sprites.dungeon.greenSwitchUp)
     tiles.setTileAt(tiles.getTileLocation(30, 5), sprites.dungeon.purpleSwitchUp)
@@ -305,7 +305,18 @@ scene.onOverlapTile(SpriteKind.FIRE, assets.tile`tile5`, function (sprite, locat
 })
 function GG (WsLs: any[]) {
     for (let value of WsLs) {
-    	
+        if (value) {
+            WLsnum += 1
+        }
+    }
+    if (WLsnum == 3) {
+        return ""
+    } else if (WLsnum == 2) {
+        return ""
+    } else if (WLsnum == 1) {
+        return ""
+    } else {
+        return ""
     }
 }
 scene.onOverlapTile(SpriteKind.WATER, assets.tile`tile4`, function (sprite, location) {
@@ -365,6 +376,8 @@ let player1: Sprite = null
 let list: boolean[] = []
 let rounds = 0
 let Wall = false
+let WLsnum = 0
+WLsnum = 0
 Wall = true
 let teammate = 0
 rounds = 0
