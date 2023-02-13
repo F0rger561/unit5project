@@ -17,7 +17,7 @@ scene.onOverlapTile(SpriteKind.WATER, assets.tile`tile3`, function (sprite, loca
         tiles.setWallAt(tiles.getTileLocation(15, 39), true)
         tiles.setWallAt(tiles.getTileLocation(15, 40), true)
         Wall = true
-        tiles.setTileAt(location, sprites.dungeon.darkGroundNorthWest1)
+        tiles.setTileAt(location, sprites.builtin.forestTiles10)
     }
 })
 scene.onOverlapTile(SpriteKind.FIRE, sprites.dungeon.greenSwitchUp, function (sprite, location) {
@@ -310,13 +310,13 @@ function GG (WsLs: any[]) {
         }
     }
     if (WLsnum == 3) {
-        return ""
+        return "Wow you won all 3 rounds. Way to Go!"
     } else if (WLsnum == 2) {
-        return ""
+        return "Hey 2 for 3 isn't bad."
     } else if (WLsnum == 1) {
-        return ""
+        return "1 out of 3, keep on trying!"
     } else {
-        return ""
+        return "You lost all three rounds, wow."
     }
 }
 scene.onOverlapTile(SpriteKind.WATER, assets.tile`tile4`, function (sprite, location) {
