@@ -409,5 +409,5 @@ let player2: Sprite = null
 let player1: Sprite = null
 let Wall = false
 tiles.setCurrentTilemap(tilemap`level5`)
-start()
 keymapping()
+start()
