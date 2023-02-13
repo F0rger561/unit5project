@@ -45,6 +45,7 @@ function jumping () {
 }
 function game2 () {
     while (rounds == 3) {
+        scene.setBackgroundColor(15)
         game.splash(GG(list))
         if (game.ask("Would you like to play again?")) {
             start()
@@ -62,6 +63,8 @@ function game2 () {
     tiles.setTileAt(tiles.getTileLocation(18, 41), assets.tile`tile5`)
     tiles.setTileAt(tiles.getTileLocation(13, 41), assets.tile`tile3`)
     tiles.setTileAt(tiles.getTileLocation(18, 34), assets.tile`tile4`)
+    teammateW = false
+    teammateF = false
     Level = game.askForNumber("What level would you like to play? 1 2 or 3?", 1)
     if (Level == 1) {
         levelOne()
@@ -103,7 +106,11 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     scene.cameraFollowSprite(player1)
 })
 scene.onOverlapTile(SpriteKind.FIRE, sprites.dungeon.stairSouth, function (sprite, location) {
-    WinLose(true)
+    if (teammateW) {
+        WinLose(true)
+    } else {
+        teammateF = true
+    }
 })
 function keymapping () {
     MakeyMakey.setSimulatorKeymap(
@@ -229,7 +236,11 @@ function createPlayers () {
     controller.player2.moveSprite(player2, 100, 0)
 }
 scene.onOverlapTile(SpriteKind.WATER, sprites.dungeon.stairNorth, function (sprite, location) {
-    WinLose(true)
+    if (teammateF) {
+        WinLose(true)
+    } else {
+        teammateW = true
+    }
 })
 scene.onOverlapTile(SpriteKind.WATER, sprites.dungeon.hazardLava0, function (sprite, location) {
     WinLose(false)
@@ -331,7 +342,8 @@ function GG (WsLs: any[]) {
 function start () {
     WLsnum = 0
     Wall = true
-    teammate = false
+    teammateW = false
+    teammateF = false
     rounds = 0
     list = []
     game2()
@@ -387,9 +399,10 @@ controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pr
         . . . . f . f . . . . 
         `)
 })
-let teammate = false
 let WLsnum = 0
 let Level = 0
+let teammateF = false
+let teammateW = false
 let list: boolean[] = []
 let rounds = 0
 let player2: Sprite = null
