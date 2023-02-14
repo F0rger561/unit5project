@@ -2,6 +2,7 @@ namespace SpriteKind {
     export const FIRE = SpriteKind.create()
     export const WATER = SpriteKind.create()
 }
+// replaces wall at different places
 scene.onOverlapTile(SpriteKind.WATER, assets.tile`tile3`, function (sprite, location) {
     if (!(Wall)) {
         tiles.setWallAt(tiles.getTileLocation(17, 33), true)
@@ -20,6 +21,7 @@ scene.onOverlapTile(SpriteKind.WATER, assets.tile`tile3`, function (sprite, loca
         tiles.setTileAt(location, sprites.builtin.forestTiles10)
     }
 })
+// when sprite hits level, some blocks change and no longer are a wall.
 scene.onOverlapTile(SpriteKind.FIRE, sprites.dungeon.greenSwitchUp, function (sprite, location) {
     tiles.setTileAt(tiles.getTileLocation(18, 10), sprites.dungeon.purpleInnerNorthWest)
     tiles.setWallAt(tiles.getTileLocation(18, 10), false)
@@ -32,6 +34,7 @@ scene.onOverlapTile(SpriteKind.FIRE, sprites.dungeon.greenSwitchUp, function (sp
     tiles.setWallAt(tiles.getTileLocation(14, 13), false)
     tiles.setTileAt(location, sprites.dungeon.greenSwitchDown)
 })
+// spawns users in level 3
 function levelThree () {
     createPlayers()
     jumping()
@@ -39,10 +42,12 @@ function levelThree () {
     tiles.placeOnRandomTile(player1, sprites.builtin.forestTiles5)
     tiles.placeOnRandomTile(player2, sprites.dungeon.darkGroundNorthEast0)
 }
+// adds gravity
 function jumping () {
     player1.ay = 300
     player2.ay = 300
 }
+// resets levels and calls whichever level the user wants until rounds hit 3 where the program either restarts or ends.
 function game2 () {
     while (rounds == 3) {
         scene.setBackgroundColor(15)
@@ -81,6 +86,7 @@ function game2 () {
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     scene.cameraFollowSprite(player2)
 })
+// removes walls
 scene.onOverlapTile(SpriteKind.FIRE, assets.tile`tile2`, function (sprite, location) {
     if (Wall) {
         tiles.setWallAt(tiles.getTileLocation(14, 33), false)
@@ -105,6 +111,7 @@ controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     scene.cameraFollowSprite(player1)
 })
+// makes user win only if other user reached the end as well
 scene.onOverlapTile(SpriteKind.FIRE, sprites.dungeon.stairSouth, function (sprite, location) {
     if (teammateW) {
         WinLose(true)
@@ -112,6 +119,7 @@ scene.onOverlapTile(SpriteKind.FIRE, sprites.dungeon.stairSouth, function (sprit
         teammateF = true
     }
 })
+// maps buttons to different keys
 function keymapping () {
     MakeyMakey.setSimulatorKeymap(
     MakeyMakey.PlayerNumber.ONE,
@@ -132,6 +140,7 @@ function keymapping () {
     MakeyMakey.MakeyMakeyKey.RIGHT_CLICK
     )
 }
+// spawns users in level once
 function levelOne () {
     createPlayers()
     jumping()
@@ -139,6 +148,7 @@ function levelOne () {
     tiles.placeOnRandomTile(player2, sprites.dungeon.stairEast)
     tiles.placeOnRandomTile(player1, sprites.dungeon.stairWest)
 }
+// when sprite hits level, some blocks change and no longer are a wall.
 scene.onOverlapTile(SpriteKind.WATER, sprites.dungeon.purpleSwitchUp, function (sprite, location) {
     tiles.setTileAt(tiles.getTileLocation(3, 5), sprites.dungeon.greenInnerSouthWest)
     tiles.setWallAt(tiles.getTileLocation(3, 5), false)
@@ -149,6 +159,7 @@ scene.onOverlapTile(SpriteKind.WATER, sprites.dungeon.purpleSwitchUp, function (
     tiles.setWallAt(tiles.getTileLocation(17, 13), false)
     tiles.setTileAt(location, sprites.dungeon.purpleSwitchDown)
 })
+// makes users lose
 scene.onOverlapTile(SpriteKind.FIRE, sprites.dungeon.hazardWater, function (sprite, location) {
     WinLose(false)
 })
@@ -235,6 +246,7 @@ function createPlayers () {
         `, SpriteKind.WATER)
     controller.player2.moveSprite(player2, 100, 0)
 }
+// makes user win only if other user reached the end as well
 scene.onOverlapTile(SpriteKind.WATER, sprites.dungeon.stairNorth, function (sprite, location) {
     if (teammateF) {
         WinLose(true)
@@ -242,6 +254,7 @@ scene.onOverlapTile(SpriteKind.WATER, sprites.dungeon.stairNorth, function (spri
         teammateW = true
     }
 })
+// makes users lose
 scene.onOverlapTile(SpriteKind.WATER, sprites.dungeon.hazardLava0, function (sprite, location) {
     WinLose(false)
 })
@@ -298,6 +311,7 @@ controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.P
         . . . . f . f . . . . 
         `)
 })
+// Adds either a true or a false to a list and ends the round by deleting the sprites and calling game.
 function WinLose (WL: boolean) {
     list.push(WL)
     rounds += 1
@@ -305,6 +319,7 @@ function WinLose (WL: boolean) {
     sprites.destroyAllSpritesOfKind(SpriteKind.WATER)
     game2()
 }
+// replaces walls
 scene.onOverlapTile(SpriteKind.FIRE, assets.tile`tile5`, function (sprite, location) {
     if (!(Wall)) {
         tiles.setWallAt(tiles.getTileLocation(14, 33), true)
@@ -323,6 +338,7 @@ scene.onOverlapTile(SpriteKind.FIRE, assets.tile`tile5`, function (sprite, locat
         tiles.setTileAt(location, sprites.dungeon.darkGroundNorthWest1)
     }
 })
+// decides what phrase to return depending onhow many rounds the user won.
 function GG (WsLs: any[]) {
     for (let value of WsLs) {
         if (value) {
@@ -339,6 +355,7 @@ function GG (WsLs: any[]) {
         return "You lost all three rounds, wow."
     }
 }
+// sets variables to their base and calls game
 function start () {
     WLsnum = 0
     Wall = true
@@ -348,6 +365,7 @@ function start () {
     list = []
     game2()
 }
+// removes wall from tiles
 scene.onOverlapTile(SpriteKind.WATER, assets.tile`tile4`, function (sprite, location) {
     if (Wall) {
         tiles.setWallAt(tiles.getTileLocation(17, 33), false)
@@ -366,6 +384,7 @@ scene.onOverlapTile(SpriteKind.WATER, assets.tile`tile4`, function (sprite, loca
         tiles.setTileAt(location, sprites.dungeon.darkGroundNorthWest1)
     }
 })
+// spawns users in level two
 function levelTwo () {
     createPlayers()
     jumping()
@@ -399,6 +418,7 @@ controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pr
         . . . . f . f . . . . 
         `)
 })
+// tilemap and two functions
 let WLsnum = 0
 let Level = 0
 let teammateF = false
