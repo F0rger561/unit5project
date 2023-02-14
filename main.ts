@@ -33,24 +33,17 @@ scene.onOverlapTile(SpriteKind.FIRE, sprites.dungeon.greenSwitchUp, function (sp
     tiles.setTileAt(location, sprites.dungeon.greenSwitchDown)
 })
 function levelThree () {
-    tiles.setTileAt(tiles.getTileLocation(13, 34), assets.tile`tile2`)
-    tiles.setTileAt(tiles.getTileLocation(18, 41), assets.tile`tile5`)
-    tiles.setTileAt(tiles.getTileLocation(13, 41), assets.tile`tile3`)
-    tiles.setTileAt(tiles.getTileLocation(18, 34), assets.tile`tile4`)
     createPlayers()
     jumping()
     scene.cameraFollowSprite(player1)
     tiles.placeOnRandomTile(player1, sprites.builtin.forestTiles5)
     tiles.placeOnRandomTile(player2, sprites.dungeon.darkGroundNorthEast0)
 }
-// lets sprites have jumping ability
 function jumping () {
     player1.ay = 300
     player2.ay = 300
 }
-// asks the player which level they want, and calls that level
 function game2 () {
-    // when round hits 3. Ends the game and asks whether or not the user would like to continue.
     while (rounds == 3) {
         scene.setBackgroundColor(15)
         game.splash(GG(list))
@@ -64,6 +57,12 @@ function game2 () {
             }
         }
     }
+    tiles.setTileAt(tiles.getTileLocation(14, 10), sprites.dungeon.greenSwitchUp)
+    tiles.setTileAt(tiles.getTileLocation(30, 5), sprites.dungeon.purpleSwitchUp)
+    tiles.setTileAt(tiles.getTileLocation(13, 34), assets.tile`tile2`)
+    tiles.setTileAt(tiles.getTileLocation(18, 41), assets.tile`tile5`)
+    tiles.setTileAt(tiles.getTileLocation(13, 41), assets.tile`tile3`)
+    tiles.setTileAt(tiles.getTileLocation(18, 34), assets.tile`tile4`)
     teammateW = false
     teammateF = false
     Level = game.askForNumber("What level would you like to play? 1 2 or 3?", 1)
@@ -134,24 +133,6 @@ function keymapping () {
     )
 }
 function levelOne () {
-    tiles.setTileAt(tiles.getTileLocation(14, 10), sprites.dungeon.greenSwitchUp)
-    tiles.setTileAt(tiles.getTileLocation(30, 5), sprites.dungeon.purpleSwitchUp)
-    tiles.setTileAt(tiles.getTileLocation(3, 5), sprites.builtin.brick)
-    tiles.setWallAt(tiles.getTileLocation(3, 5), true)
-    tiles.setTileAt(tiles.getTileLocation(3, 6), sprites.builtin.brick)
-    tiles.setWallAt(tiles.getTileLocation(3, 6), true)
-    tiles.setTileAt(tiles.getTileLocation(3, 7), sprites.builtin.brick)
-    tiles.setWallAt(tiles.getTileLocation(3, 7), true)
-    tiles.setWallAt(tiles.getTileLocation(17, 13), true)
-    tiles.setTileAt(tiles.getTileLocation(18, 10), sprites.builtin.brick)
-    tiles.setWallAt(tiles.getTileLocation(18, 10), true)
-    tiles.setTileAt(tiles.getTileLocation(18, 11), sprites.builtin.brick)
-    tiles.setWallAt(tiles.getTileLocation(18, 11), true)
-    tiles.setTileAt(tiles.getTileLocation(18, 12), sprites.builtin.brick)
-    tiles.setWallAt(tiles.getTileLocation(18, 12), true)
-    tiles.setTileAt(tiles.getTileLocation(18, 13), sprites.builtin.brick)
-    tiles.setWallAt(tiles.getTileLocation(18, 13), true)
-    tiles.setWallAt(tiles.getTileLocation(14, 13), true)
     createPlayers()
     jumping()
     scene.cameraFollowSprite(player1)
@@ -342,7 +323,6 @@ scene.onOverlapTile(SpriteKind.FIRE, assets.tile`tile5`, function (sprite, locat
         tiles.setTileAt(location, sprites.dungeon.darkGroundNorthWest1)
     }
 })
-// returns a different phrase depending on how many rounds the user won.
 function GG (WsLs: any[]) {
     for (let value of WsLs) {
         if (value) {
@@ -359,7 +339,6 @@ function GG (WsLs: any[]) {
         return "You lost all three rounds, wow."
     }
 }
-// creates and resets variables and calls the game
 function start () {
     WLsnum = 0
     Wall = true
@@ -420,7 +399,6 @@ controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pr
         . . . . f . f . . . . 
         `)
 })
-// sets the tilemap and calls two functions
 let WLsnum = 0
 let Level = 0
 let teammateF = false
